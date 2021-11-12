@@ -1,15 +1,19 @@
 #include "../ft_printf.h"
 
-void	ft_convert_int(long n, char *num, short *num_len)
+char	*ft_convert_int(int n, int *num_len)
 {
-	unsigned int	num_rank;
+	int		num_rank;
+	char	*num;
+	char	*num_start;
 
-	num_rank = 1;
 	if (n < 0)
-		ft_putnchar("-", 1);
+		num_rank = -1;
+	else
+		num_rank = 1;
 	while (n / num_rank / DEC != 0 && ++*num_len)
 		num_rank *= DEC;
 	num = malloc(sizeof(char) * (*num_len + 1));
+	num_start = num;
 	while (num_rank != 0)
 	{
 		*num = (char)(n / num_rank + 48);
@@ -18,27 +22,71 @@ void	ft_convert_int(long n, char *num, short *num_len)
 		++num;
 	}
 	*num = '\0';
+	return (num_start);
 }
 
-void	ft_format_int(t_format f_flag, short num_len)
+void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
 {
-	if (f_flag.width > num_len)
-		ft_memset(' ', f_flag.width - num_len);
-	if (f_flag.plus)
-		ft_putnchar("+", 1);
+	if (f_flag->width > f_flag->precision && f_flag->precision > n_len)
+	{
+		f_flag->width -= (f_flag->precision + f_flag->plus);
+		f_flag->precision -= n_len;
+	}
+	else if (f_flag->precision >= f_flag->width && f_flag->precision >= n_len)
+	{
+		f_flag->width = 0;
+		f_flag->precision -= n_len;
+	}
+	else if (n_len >= f_flag->width && n_len > f_flag->precision)
+	{
+		f_flag->width = 0;
+		f_flag->precision = 0;
+	}
+	else if (f_flag->width > n_len && n_len >= f_flag->precision)
+	{
+		f_flag->width -= (n_len + f_flag->plus);
+		f_flag->precision = 0;
+	}
+	*size += f_flag->width + f_flag->precision + f_flag->plus + n_len;
 }
 
-void	ft_print_int(long n, t_format f_flag)
+void	ft_format_int(char *str, t_form *f_flag, int i, char sign)
 {
-	short	num_len;
+	if (f_flag->minus == 0)
+	{
+		ft_memset(' ', f_flag->width);
+		ft_putnchar(&sign, f_flag->plus);
+		ft_memset('0', f_flag->precision);
+		ft_putnchar(str, i);
+	}
+	else
+	{
+		ft_putnchar(&sign, f_flag->plus);
+		ft_memset('0', f_flag->precision);
+		ft_putnchar(str, i);
+		ft_memset(' ', f_flag->width);
+	}
+}
+
+void	ft_print_int(int n, t_form *f_flag, int *size)
+{
+	int		num_len;
 	char	*num;
+	char	sign;
 
-	num = NULL;
 	num_len = 1;
+	sign = ' ';
 	if (n < 0)
-		ft_putnchar("-", 1);
-	ft_convert_int(n, num, &num_len);
-	ft_format_int(f_flag, num_len);
-	ft_putnchar(num, num_len);
+	{
+		f_flag->plus = 1;
+		sign = '-';
+	}
+	else if (f_flag->space)
+		f_flag->plus = 1;
+	else if (f_flag->plus && n > 0)
+		sign = '+';
+	num = ft_convert_int(n, &num_len);
+	ft_print_logic_int(f_flag, num_len, size);
+	ft_format_int(num, f_flag, num_len, sign);
 	free(num);
 }

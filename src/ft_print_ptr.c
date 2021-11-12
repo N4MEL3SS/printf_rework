@@ -1,16 +1,17 @@
 #include "../ft_printf.h"
 
-char	*ft_convert_ptr(char *num, size_t n, short *num_len)
+char	*ft_convert_ptr(size_t n, int *num_len)
 {
+	char	*num_start;
+	char	*num;
 	size_t	num_rank;
 	size_t	tmp;
-	char	*num_p;
 
 	num_rank = 1;
 	while (n / num_rank / HEX != 0 && ++*num_len)
 		num_rank *= HEX;
 	num = malloc(sizeof(char) * (*num_len + 1));
-	num_p = num;
+	num_start = num;
 	*(num++) = '0';
 	*(num++) = 'x';
 	while (num_rank != 0)
@@ -21,35 +22,39 @@ char	*ft_convert_ptr(char *num, size_t n, short *num_len)
 		else
 			*num = (char)(tmp + 48);
 		n %= num_rank;
-		num_rank /= 16;
+		num_rank /= HEX;
 		++num;
 	}
 	*num = '\0';
-	return (num_p);
+	return (num_start);
 }
 
-void	ft_format_ptr(char *str, t_format f_flag, int len)
+void	ft_format_ptr(char *str, t_form *f_flag, int len)
 {
-	if (f_flag.minus == 0)
+	if (f_flag->minus == 0)
 	{
-		ft_memset(' ', f_flag.width - len);
+		ft_memset(' ', f_flag->width);
 		ft_putnchar(str, len);
 	}
 	else
 	{
 		ft_putnchar(str, len);
-		ft_memset(' ', f_flag.width - len);
+		ft_memset(' ', f_flag->width);
 	}
 }
 
-void	ft_print_ptr(size_t n, t_format f_flag)
+void	ft_print_ptr(size_t n, t_form *f_flag, int *size)
 {
 	char	*num;
-	short	num_len;
+	int		num_len;
 
-	num = NULL;
 	num_len = 3;
-	num = ft_convert_ptr(num, n, &num_len);
+	num = ft_convert_ptr(n, &num_len);
+	if (f_flag->width > num_len)
+		f_flag->width -= num_len;
+	else
+		f_flag->width = 0;
+	*size += f_flag->width + num_len;
 	ft_format_ptr(num, f_flag, num_len);
 	free(num);
 }

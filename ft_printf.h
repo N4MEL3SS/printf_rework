@@ -6,37 +6,37 @@
 # include <stdio.h> //TODO: Удалить
 # include <unistd.h>
 
+# define MEM_SIZE 8
 # define DEC 10
 # define HEX 16
 
-typedef struct s_format
+typedef struct s_form
 {
 	short		minus;
-	short		plus;
+	int			plus;
 	short		zero;
 	short		space;
 	short		sharp;
 	int			width;
 	int			precision;
-	char		type;
-}				t_format;
+}				t_form;
 
-int			ft_isflag(char flag);
-int			ft_isprintf_type(int c);
 int			ft_isdigit(int c);
+int			ft_isflag(int flag);
 
+int			ft_strlen(const char *str);
+void		ft_memset(int c, int n);
 void		ft_putnchar(char *str, size_t i);
-void		ft_memset(int c, long n);
-size_t		ft_strlen(const char *str);
 
-void		ft_print_str(char *str, t_format f_flag);
-void		ft_print_int(long n, t_format f_flag);
-void		ft_print_ptr(size_t n, t_format f_flag);
-void		ft_print_hex(long n, t_format f_flag);
-void		ft_print_char(char c, t_format f_flag);
-void		ft_print_percent(t_format f_flag);
+void		ft_print_char(char c, t_form *f_flag, int *size);
+void		ft_print_percent(t_form *f_flag, int *size);
+void		ft_print_str(char *str, t_form *f_flag, int *size);
+void		ft_print_int(int n, t_form *f_flag, int *size);
+void		ft_print_uint(unsigned int n, t_form *f_flag, int *size);
+void		ft_print_hex(unsigned int n, int x, t_form *f_flag, int *size);
+void		ft_print_ptr(size_t n, t_form *f_flag, int *size);
 
-void		ft_printf(const char *input, ...);
-const char	*ft_parser(const char *input, va_list ap, t_format *form_f);
+int			ft_printf(const char *f_str, ...);
+const char	*ft_pars(const char *f_str, va_list ap, t_form *f_flag);
 
 #endif //FT_PRINTF_H

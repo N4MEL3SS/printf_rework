@@ -1,4 +1,4 @@
-int	ft_isflag(char flag)
+int	ft_isflag(int flag)
 {
 	if (flag == '-' || flag == '+' || flag == '0'
 		|| flag == ' ' || flag == '#')
