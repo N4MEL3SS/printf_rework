@@ -2,8 +2,8 @@
 
 char	*ft_convert_hex(unsigned int n, int *num_len, int x)
 {
-	char	*num_start;
-	char	*num;
+	char			*num_start;
+	char			*num;
 	unsigned int	num_rank;
 	unsigned int	tmp;
 
@@ -75,7 +75,6 @@ void	ft_print_hex(unsigned int n, int x, t_form *f_flag, int *size)
 	char	*num;
 	int		n_len;
 
-	num = NULL;
 	n_len = 1;
 	num = ft_convert_hex(n, &n_len, x);
 	ft_print_logic_hex(f_flag, n_len, size);

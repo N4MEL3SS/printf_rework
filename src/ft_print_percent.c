@@ -21,9 +21,6 @@ void	ft_print_percent(t_form *f_flag, int *size)
 		}
 	}
 	else
-	{
-		f_flag->width = 1;
 		ft_putnchar("%", 1);
-	}
-	*size += f_flag->width;
+	*size += f_flag->width + 1;
 }

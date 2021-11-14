@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 const char	*ft_print_type(const char *f_str, va_list ap, int *size)
 {

@@ -27,17 +27,7 @@ char	*ft_convert_int(int n, int *num_len)
 
 void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
 {
-	if (f_flag->width > f_flag->precision && f_flag->precision > n_len)
-	{
-		f_flag->width -= (f_flag->precision + f_flag->plus);
-		f_flag->precision -= n_len;
-	}
-	else if (f_flag->precision >= f_flag->width && f_flag->precision >= n_len)
-	{
-		f_flag->width = 0;
-		f_flag->precision -= n_len;
-	}
-	else if (n_len >= f_flag->width && n_len > f_flag->precision)
+	if (n_len >= f_flag->width && n_len > f_flag->precision)
 	{
 		f_flag->width = 0;
 		f_flag->precision = 0;
@@ -46,6 +36,16 @@ void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
 	{
 		f_flag->width -= (n_len + f_flag->plus);
 		f_flag->precision = 0;
+	}
+	else if (f_flag->width > f_flag->precision && f_flag->precision > n_len)
+	{
+		f_flag->width -= (f_flag->precision + f_flag->plus);
+		f_flag->precision -= n_len;
+	}
+	else if (f_flag->precision >= f_flag->width && f_flag->precision >= n_len)
+	{
+		f_flag->width = 0;
+		f_flag->precision -= n_len;
 	}
 	*size += f_flag->width + f_flag->precision + f_flag->plus + n_len;
 }
@@ -75,16 +75,17 @@ void	ft_print_int(int n, t_form *f_flag, int *size)
 	char	sign;
 
 	num_len = 1;
-	sign = ' ';
+	sign = '+';
 	if (n < 0)
 	{
 		f_flag->plus = 1;
 		sign = '-';
 	}
-	else if (f_flag->space)
+	else if (f_flag->space && !f_flag->plus)
+	{
 		f_flag->plus = 1;
-	else if (f_flag->plus && n > 0)
-		sign = '+';
+		sign = ' ';
+	}
 	num = ft_convert_int(n, &num_len);
 	ft_print_logic_int(f_flag, num_len, size);
 	ft_format_int(num, f_flag, num_len, sign);

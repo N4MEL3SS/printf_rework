@@ -10,7 +10,7 @@ add_executable(printf main.c
 		src/ft_strlen.c
 		src/ft_putnchar.c
 		ft_printf.h
-		ft_printf.c
+		src/ft_printf.c
 		src/ft_parser.c
 		src/ft_print_str.c
 		src/ft_memset.c

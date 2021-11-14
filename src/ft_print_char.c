@@ -2,7 +2,7 @@
 
 void	ft_print_char(char c, t_form *f_flag, int *size)
 {
-	if (f_flag->width > 2)
+	if (f_flag->width > 1)
 	{
 		if (f_flag->minus == 0)
 		{
@@ -16,9 +16,6 @@ void	ft_print_char(char c, t_form *f_flag, int *size)
 		}
 	}
 	else
-	{
-		f_flag->width = 1;
 		ft_putnchar(&c, 1);
-	}
-	*size += f_flag->width;
+	*size += f_flag->width + 1;
 }
