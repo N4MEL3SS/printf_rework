@@ -17,12 +17,9 @@ void	ft_print_str(char *str, t_form *f_flag, int *size)
 	int	str_len;
 
 	if (!str)
-	{
-		ft_putnchar("(null)", 6);
-		*size += 6;
-		return ;
-	}
-	str_len = ft_strlen(str);
+		str_len = 6;
+	else
+		str_len = ft_strlen(str);
 	ft_print_logic_str(f_flag, &str_len, size);
 	if (f_flag->minus == 0)
 	{
@@ -34,4 +31,6 @@ void	ft_print_str(char *str, t_form *f_flag, int *size)
 		ft_putnchar(str, str_len);
 		ft_memset(' ', f_flag->width);
 	}
+	if (!str)
+		ft_putnchar("(null)", 6);
 }

@@ -2,13 +2,15 @@
 
 int	main(void)
 {
-	int	i;
+	int		i;
+	char	*c;
 
+	c = NULL;
 	printf("ft:\n");
-	i = ft_printf(" %04d ", -14);
+	i = ft_printf("%32s\n", c);
 	printf("%i\n", i);
 	printf("or:\n");
-	i = printf(" %04d ", -14);
+	i = printf("%32s\n", c);
 	printf("%i\n", i);
 	return (0);
 }
