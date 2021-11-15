@@ -49,7 +49,12 @@ void	ft_print_logic_uint(t_form *f_flag, int n_len, int *size)
 
 void	ft_format_uint(char *str, t_form *f_flag, int i)
 {
-	if (f_flag->minus == 0)
+	if (f_flag->zero == 1)
+	{
+		ft_memset('0', f_flag->width);
+		ft_putnchar(str, i);
+	}
+	else if (f_flag->minus == 0)
 	{
 		ft_memset(' ', f_flag->width);
 		ft_memset('0', f_flag->precision);

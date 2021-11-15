@@ -27,18 +27,24 @@ char	*ft_convert_hex(unsigned int n, int *num_len, int x)
 	return (num_start);
 }
 
-void	ft_format_hex(char *str, t_form *f_flag, int i)
+void	ft_format_hex(char *str, t_form *f_flag, int i, char *ox)
 {
-	if (f_flag->minus == 0)
+	if (f_flag->zero == 1)
+	{
+		ft_putnchar(ox, f_flag->sharp);
+		ft_memset('0', f_flag->width);
+		ft_putnchar(str, i);
+	}
+	else if (f_flag->minus == 0)
 	{
 		ft_memset(' ', f_flag->width);
-		ft_putnchar("0x", f_flag->sharp);
+		ft_putnchar(ox, f_flag->sharp);
 		ft_memset('0', f_flag->precision);
 		ft_putnchar(str, i);
 	}
 	else
 	{
-		ft_putnchar("0x", f_flag->sharp);
+		ft_putnchar(ox, f_flag->sharp);
 		ft_memset('0', f_flag->precision);
 		ft_putnchar(str, i);
 		ft_memset(' ', f_flag->width);
@@ -73,11 +79,19 @@ void	ft_print_logic_hex(t_form *f_flag, int n_len, int *size)
 void	ft_print_hex(unsigned int n, int x, t_form *f_flag, int *size)
 {
 	char	*num;
+	char	ox[2];
 	int		n_len;
 
 	n_len = 1;
+	if (n > 0)
+	{
+		ox[0] = '0';
+		ox[1] = (char) x;
+	}
+	else
+		f_flag->sharp = 0;
 	num = ft_convert_hex(n, &n_len, x);
 	ft_print_logic_hex(f_flag, n_len, size);
-	ft_format_hex(num, f_flag, n_len);
+	ft_format_hex(num, f_flag, n_len, ox);
 	free(num);
 }

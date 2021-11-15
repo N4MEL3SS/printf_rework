@@ -17,6 +17,7 @@ typedef struct s_form
 	short		zero;
 	short		space;
 	short		sharp;
+	short		dot;
 	int			width;
 	int			precision;
 }				t_form;

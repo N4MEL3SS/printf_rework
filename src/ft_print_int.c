@@ -1,6 +1,6 @@
 #include "../ft_printf.h"
 
-char	*ft_convert_int(int n, int *num_len)
+char	*ft_convert_int(long n, int *num_len)
 {
 	int		num_rank;
 	char	*num;
@@ -52,7 +52,13 @@ void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
 
 void	ft_format_int(char *str, t_form *f_flag, int i, char sign)
 {
-	if (f_flag->minus == 0)
+	if (f_flag->zero == 1)
+	{
+		ft_putnchar(&sign, f_flag->plus);
+		ft_memset('0', f_flag->width);
+		ft_putnchar(str, i);
+	}
+	else if (f_flag->minus == 0)
 	{
 		ft_memset(' ', f_flag->width);
 		ft_putnchar(&sign, f_flag->plus);
