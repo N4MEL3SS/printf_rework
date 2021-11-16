@@ -2,5 +2,6 @@
 
 void	ft_putnchar(char *str, size_t i)
 {
-	write(1, str, i);
+	if (i > 0)
+		write(1, str, i);
 }

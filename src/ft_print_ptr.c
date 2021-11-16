@@ -29,7 +29,7 @@ char	*ft_convert_ptr(size_t n, int *num_len)
 	return (num_start);
 }
 
-void	ft_print_logic_ptr(t_form *f_flag, int num_len, int *size)
+void	ft_logic_print_ptr(t_form *f_flag, int num_len, int *size)
 {
 	if (f_flag->width > num_len)
 		f_flag->width -= num_len;
@@ -38,7 +38,7 @@ void	ft_print_logic_ptr(t_form *f_flag, int num_len, int *size)
 	*size += f_flag->width + num_len;
 }
 
-void	ft_format_ptr(char *str, t_form *f_flag, int len)
+void	ft_put_ptr(char *str, t_form *f_flag, int len)
 {
 	if (f_flag->minus == 0)
 	{
@@ -59,7 +59,7 @@ void	ft_print_ptr(size_t n, t_form *f_flag, int *size)
 
 	num_len = 3;
 	num = ft_convert_ptr(n, &num_len);
-	ft_print_logic_ptr(f_flag, num_len, size);
-	ft_format_ptr(num, f_flag, num_len);
+	ft_logic_print_ptr(f_flag, num_len, size);
+	ft_put_ptr(num, f_flag, num_len);
 	free(num);
 }

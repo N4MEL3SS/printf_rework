@@ -25,7 +25,7 @@ char	*ft_convert_int(long n, int *num_len)
 	return (num_start);
 }
 
-void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
+void	ft_logic_print_int(t_form *f_flag, int n_len, int *size)
 {
 	if (n_len >= f_flag->width && n_len > f_flag->precision)
 	{
@@ -50,12 +50,21 @@ void	ft_print_logic_int(t_form *f_flag, int n_len, int *size)
 	*size += f_flag->width + f_flag->precision + f_flag->plus + n_len;
 }
 
-void	ft_format_int(char *str, t_form *f_flag, int i, char sign)
+void	ft_put_int(char *str, t_form *f_flag, int i, char sign)
 {
 	if (f_flag->zero == 1)
 	{
-		ft_putnchar(&sign, f_flag->plus);
-		ft_memset('0', f_flag->width);
+		if (f_flag->dot != 1)
+		{
+			ft_putnchar(&sign, f_flag->plus);
+			ft_memset('0', f_flag->width);
+		}
+		else
+		{
+			ft_memset(' ', f_flag->width);
+			ft_putnchar(&sign, f_flag->plus);
+			ft_memset('0', f_flag->precision);
+		}
 		ft_putnchar(str, i);
 	}
 	else if (f_flag->minus == 0)
@@ -93,7 +102,7 @@ void	ft_print_int(int n, t_form *f_flag, int *size)
 		sign = ' ';
 	}
 	num = ft_convert_int(n, &num_len);
-	ft_print_logic_int(f_flag, num_len, size);
-	ft_format_int(num, f_flag, num_len, sign);
+	ft_logic_print_int(f_flag, num_len, size);
+	ft_put_int(num, f_flag, num_len, sign);
 	free(num);
 }

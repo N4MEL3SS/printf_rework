@@ -22,7 +22,7 @@ char	*ft_convert_uint(unsigned int n, int *num_len)
 	return (num_start);
 }
 
-void	ft_print_logic_uint(t_form *f_flag, int n_len, int *size)
+void	ft_logic_print_uint(t_form *f_flag, int n_len, int *size)
 {
 	if (f_flag->width > f_flag->precision && f_flag->precision > n_len)
 	{
@@ -47,7 +47,7 @@ void	ft_print_logic_uint(t_form *f_flag, int n_len, int *size)
 	*size += f_flag->width + f_flag->precision + n_len;
 }
 
-void	ft_format_uint(char *str, t_form *f_flag, int i)
+void	ft_put_uint(char *str, t_form *f_flag, int i)
 {
 	if (f_flag->zero == 1)
 	{
@@ -75,7 +75,7 @@ void	ft_print_uint(unsigned int n, t_form *f_flag, int *size)
 
 	num_len = 1;
 	num = ft_convert_uint(n, &num_len);
-	ft_print_logic_uint(f_flag, num_len, size);
-	ft_format_uint(num, f_flag, num_len);
+	ft_logic_print_uint(f_flag, num_len, size);
+	ft_put_uint(num, f_flag, num_len);
 	free(num);
 }

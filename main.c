@@ -7,10 +7,10 @@ int	main(void)
 
 	c = NULL;
 	printf("ft:\n");
-	i = ft_printf("%32s\n", c);
+	i = ft_printf("this %d number", 17);
 	printf("%i\n", i);
 	printf("or:\n");
-	i = printf("%32s\n", c);
+	i = printf("this %d number", 17);
 	printf("%i\n", i);
 	return (0);
 }

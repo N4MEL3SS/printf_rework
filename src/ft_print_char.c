@@ -1,6 +1,6 @@
 #include "../ft_printf.h"
 
-void	ft_print_char(char c, t_form *f_flag, int *size)
+void	ft_put_char(char c, t_form *f_flag)
 {
 	if (f_flag->width > 1)
 	{
@@ -21,5 +21,10 @@ void	ft_print_char(char c, t_form *f_flag, int *size)
 		f_flag->width = 0;
 		ft_putnchar(&c, 1);
 	}
+}
+
+void	ft_print_char(char c, t_form *f_flag, int *size)
+{
+	ft_put_char(c, f_flag);
 	*size += f_flag->width + 1;
 }

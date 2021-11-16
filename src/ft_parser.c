@@ -10,6 +10,7 @@ void	ft_init_format(t_form *f_flag)
 	f_flag->width = 0;
 	f_flag->precision = 0;
 	f_flag->dot = 0;
+	f_flag->null_str = 0;
 }
 
 const char	*ft_pars_flag(const char *f_str, t_form *f_flag)
